@@ -1,20 +1,14 @@
-import {createBrowserRouter} from "react-router-dom";
-import Main from '../layout/Main';
-import Home from '../pages/Home';
-
-const router = createBrowserRouter([
-    {
-      path: "/",
-      element: <Main />,
-      children:[
-        {
-            path: "/",
-            element: <Home/>
-        }
-      ]
-    },
-  ]);
+import ReactDOM from 'react-dom/client'
+import './index.css'
+import router from './Routes/Router.jsx'
+import {RouterProvider} from "react-router-dom";
+import "./App.css"
+import AuthProvider from './context/AuthProvider.jsx';
 
 
-
-export default router
+ReactDOM.createRoot(document.getElementById('root')).render(
+  <AuthProvider>
+    <RouterProvider router={router} />
+  </AuthProvider>
+  
+)
