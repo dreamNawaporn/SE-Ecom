@@ -2,6 +2,7 @@
 /* eslint-disable react/prop-types */
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import Swal from "sweetalert2"
 
 const Card = ({ item }) => {
     const { _id, name, image, price, description } = item;
@@ -10,6 +11,19 @@ const Card = ({ item }) => {
     const handleHeartClick = () => {
         setIsHeartFilled(!isHeartFilled);
     };
+    const handleAddrtClick = (item) => {
+        console.log(item);
+
+        const cartItem = {
+            productId: item._id,
+            name:item.name,
+            email:"",
+            price:item.price,
+            image:item.image,
+            quantity: 1,
+         
+        }
+    }
 
     return (
         <div className="card shadow-xl relative mr-5 md:my-5">

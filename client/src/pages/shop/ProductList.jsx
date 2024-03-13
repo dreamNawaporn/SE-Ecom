@@ -60,13 +60,14 @@ const ProductList = () => {
     setCurrentPage(1);
   };
 
-  const paginate = (pageNumber) => {
-    setCurrentPage(pageNumber);
-  };
+//  const paginate = (pageNumber) => {
+//    setCurrentPage(pageNumber);
+//  };
 
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentItems = filteredItems.slice(indexOfFirstItem, indexOfLastItem);
+  const paginate = (pageNumbar) => setCurrentPage(pageNumbar);
 
   return (
     <div>
