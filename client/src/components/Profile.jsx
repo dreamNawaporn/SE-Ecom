@@ -4,10 +4,12 @@
 import { useContext } from "react";
 import { AuthContext } from "../context/AuthProvider";
 import { useNavigate } from "react-router-dom";
+import useAdmin from "../hook/useAdmin";
 
 const Profile = ({ user }) => {
   const { logout } = useContext(AuthContext);
   const navigate = useNavigate();
+  const [isAdmin , isAdminLoading] = useAdmin()
   
     const handleOutOut = () => {
       logout()
@@ -56,7 +58,7 @@ const Profile = ({ user }) => {
               <a href="/update-profile">Profile</a>
             </li>
             <li>
-              <a>Order</a>
+            <a href="/dashboard">Dashboard</a>
             </li>
             <li>
               <a>Setting</a>

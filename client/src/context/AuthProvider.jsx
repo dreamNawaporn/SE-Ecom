@@ -15,9 +15,12 @@ import {
   updateProfile,
 } from "firebase/auth";
 
+import axiosPublic from "../hook/useAxios";
+
 const AuthProvider = ({ children }) => {
   const auth = getAuth(app);
   const [user, setUser] = useState(null);
+  const [reload, setReload] = useState(false);
 
   const createUser = (email, password) => {
     return createUserWithEmailAndPassword(auth, email, password);
@@ -52,19 +55,42 @@ const AuthProvider = ({ children }) => {
     logout,
     signUpWithGoogle,
     updateUserProfile,
+    reload,
+    setReload,
   };
   //check if user is Logged in
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-      setUser(currentUser);
       if (currentUser) {
-        setUser(currentUser);
+        const userInfo = {email : currentUser.email}
+        try {
+          axiosPublic.post("/jwt", userInfo)
+          .then((response) => {  
+            if(response.data.token){
+              localStorage.setItem("token", response.data.token);
+            } else {
+              localStorage.removeItem("token");
+            } 
+            axiosPublic.get(`/users/${currentUser.email}`).then(
+              (
+                response
+              ) => {
+               setUser(response.data)
+              }
+            )
+          })
+          .catch((error) => {
+            console.error('Error:', error);
+          });        
+        } catch (error) {
+          console.log(error);
+        }
       }
     });
     return () => {
       return unsubscribe();
     };
-  }, [auth]);
+  }, [axiosPublic]);
 
   return (
     <AuthContext.Provider value={authInfo}>{children}</AuthContext.Provider>

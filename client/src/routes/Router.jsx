@@ -1,41 +1,54 @@
-import {createBrowserRouter} from "react-router-dom";
-import Main from '../layout/Main';
+import React from "react";
+import { createBrowserRouter } from "react-router-dom";
+import Main from "../layout/Main";
+import Home from "../pages/home/Home";
 import ProductList from "../pages/shop/ProductList";
+import Signup from "../components/Signup";
 import UpdateProfile from "../pages/dashboard/UpdateProfile";
-import PrivateRouter from "../PrivateRouter/PrivateRouter";
-import Signin from "../components/signIn";
-import Home from "../pages/Home/Home";
+import PrivateRouter from "../pages/PrivateRouter/PrivateRouter";
+import Signin from "../components/signin";
+import Cart from "../pages/shop/Cart";
+import Admin from "../admin/admin";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <Main />,
-    children: [
-      
+    children:[
       {
-        path: "/",
-        element: <Home />,
+        path:"/",
+        element:<Home />,
       },
       {
-        path: "/shop",
-        element: (
-          <PrivateRouter>
-            <ProductList />
+        path:"/shop",
+        element:<PrivateRouter>
+          <ProductList />
           </PrivateRouter>
-        ),
       },
       {
-        path: "/update-profile",
-        element: <UpdateProfile />,
+        path:"/cart",
+        element:<PrivateRouter>
+          <Cart />
+          </PrivateRouter>
+      },
+      {
+        path:"/update-profile",
+        element:<UpdateProfile />
       },
     ],
   },
   {
+    path:"/signup",
+    element:<Signup />
+  },
+  {
     path:"/signin",
-    element:<Signin/>
+    element:<Signin />
+  },
+  {
+    path:"/admin",
+    element:<Admin />
   }
 ]);
 
-
-
-export default router
+export default router;

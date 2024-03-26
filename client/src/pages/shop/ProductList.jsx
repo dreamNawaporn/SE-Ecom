@@ -1,6 +1,8 @@
 /* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from 'react';
 import Card from '../../components/Card';
+import axios from "axios";
+import axiosPublic from "../../hook/useAxios";
 
 const ProductList = () => {
   const [products, setProducts] = useState([]);
@@ -14,8 +16,9 @@ const ProductList = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch("http://localhost:5000/products");
-        const data = await response.json();
+       
+        const Product = await axiosPublic.get("http://localhost:5000/products")
+        const data = await Product.data;
         setProducts(data);
         setFilteredItems(data);
         setCategories(["all", ...new Set(data.map((item) => item.category))]);
@@ -60,14 +63,14 @@ const ProductList = () => {
     setCurrentPage(1);
   };
 
-//  const paginate = (pageNumber) => {
-//    setCurrentPage(pageNumber);
-//  };
+  const paginate = (pageNumber) => {
+    setCurrentPage(pageNumber);
+  };
 
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentItems = filteredItems.slice(indexOfFirstItem, indexOfLastItem);
-  const paginate = (pageNumbar) => setCurrentPage(pageNumbar);
+
 
   return (
     <div>

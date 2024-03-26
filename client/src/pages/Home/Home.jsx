@@ -1,8 +1,9 @@
-import Banner from '../components/Banner'
-import Categories from './Categories'
-import SpecialProduct from './SpecialProduct'
-import Testimonials from './Testimonials'
-import OurService from './OurService'
+import Banner from '../../components/Banner'
+import Categories from '../Home/Categories'
+import SpecialProduct from '../Home/SpecialProduct'
+import Testimonials from '../Home/Testimonials'
+import OurService from '../Home/OurService'
+import ProductList from '../shop/ProductList'
 
 const Home = () => {
   return (
@@ -12,6 +13,7 @@ const Home = () => {
         <SpecialProduct/>
         <Testimonials/>
         <OurService/>
+        <ProductList/>
     </div>
   )
 }
